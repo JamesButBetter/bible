@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bible</title>
+    <style>
+        textarea{
+            width: 100%;
+            height: 300px;
+        }        
+    </style>
+</head>
+<body>
+    <h1>Bible</h1>
+
+    <textarea id="editBible" placeholder="Write your text..."></textarea>
+
+    <button onclick="saveText()">Save</button>
+    
+    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            databaseURL: "https://bible-542f8-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "bible",
+        };
+        firebase.initializeApp(config);
+
+        // Reference to your entire Firebase database
+        var myFirebase = firebase.database().ref();
+
+        // Get a reference to your Bible
+        var bible = myFirebase.child("bible");
+
+        // Save text to firebase
+        function saveText() {
+            var text = document.getElementById('editBible').value;
+            bible.set(text);
+        }
+
+        // Load text from firebase
+        bible.on('value', function(snapshot) {
+            document.getElementById('editBible').value = snapshot.val();
+        });
+    </script>
+
+</body>
+</html>

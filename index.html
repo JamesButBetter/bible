@@ -1,47 +1,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bible</title>
-    <style>
-        textarea{
-            width: 100%;
-            height: 300px;
-        }        
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
 </head>
 <body>
-    <h1>Bible</h1>
 
-    <textarea id="editBible" placeholder="Write your text..."></textarea>
+<h2>The Bible of Soph</h2>
 
-    <button onclick="saveText()">Save</button>
-    
-    <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            databaseURL: "https://bible-542f8-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "bible",
-        };
-        firebase.initializeApp(config);
+<br>
 
-        // Reference to your entire Firebase database
-        var myFirebase = firebase.database().ref();
+<button type="button" class="collapsible">Rise to relevancy.</button>
+<div class="content">
+  <pre>
+      1. In the cage was Sophie cornered,
+      2. But her capturer new none of her status,
+      3. "Away" she yelled, "For I am the true God,"
+      4. At her words the evils of the earth cringed,
+      5. At her words her captureres fleed,
+      6. And at her words the very sky above shone with the light of a new ruler,
+      7. One who never died,
+      8. One who never commited wrongs,
+      9. And one who could guide us at last.
+  </pre>
+</div>
 
-        // Get a reference to your Bible
-        var bible = myFirebase.child("bible");
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
-        // Save text to firebase
-        function saveText() {
-            var text = document.getElementById('editBible').value;
-            bible.set(text);
-        }
-
-        // Load text from firebase
-        bible.on('value', function(snapshot) {
-            document.getElementById('editBible').value = snapshot.val();
-        });
-    </script>
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
 
 </body>
 </html>
